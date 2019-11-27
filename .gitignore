@@ -1,2 +1,4 @@
 node_modules
 public
+target
+Cargo.lock
