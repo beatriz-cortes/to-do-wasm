@@ -8,6 +8,6 @@ extern "C" {
 }
 
 #[wasm_bindgen]
-pub fn big_computation() {
-    alert("Big computation in Rust");
+pub fn hello(name: &str) -> String {
+    format!("{} here is your list of to-do's:", name)
 }

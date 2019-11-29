@@ -1,6 +1,10 @@
 [package]
-name = "to_do_wasm"
-version = "1.0.0"
+name = "to-do-wasm"
+version = "0.1.0"
+authors = ["bettycortes"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
 crate-type = ["cdylib"]

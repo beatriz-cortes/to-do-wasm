@@ -5,7 +5,9 @@ import List from "./components/list";
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      wasm: {},
       tasks: [
         {
           id: 1,
@@ -37,12 +39,22 @@ class App extends Component {
           description: "What task 5 is  about",
           showDescription: false
         }
-      ]
+      ],
+      name: ""
     };
   }
 
-  bigComputation = () => {
-    alert("Big computation in JavaScript");
+  componentDidMount() {
+    this.loadWasm();
+  }
+
+  loadWasm = async () => {
+    try {
+      const wasm = await import("pkg");
+      this.setState({ wasm });
+    } catch (err) {
+      console.error(`Unexpected error in loadWasm. [Message: ${err.message}]`);
+    }
   };
 
   handleOpenDescription = taskId => {
@@ -53,17 +65,20 @@ class App extends Component {
   };
 
   render() {
+    const { wasm, tasks } = this.state;
+
     return (
       <React.Fragment>
-        <h1>To Do</h1>
-        <button onClick={this.bigComputation}>Run Computation</button>
-        <List
-          tasks={this.state.tasks}
-          onOpen={this.handleOpenDescription}
-          showDescription={this.state.showDescription}
+        <h2>{wasm.hello && wasm.hello(this.state.name)}</h2>
+        <List tasks={tasks} onOpen={this.handleOpenDescription} />
+        <p>Change list owner</p>
+        <input
+          type="text"
+          onChange={e => this.setState({ name: e.target.value })}
         />
       </React.Fragment>
     );
   }
 }
+
 export default App;
