@@ -3,7 +3,7 @@ import Task from "./task";
 
 class List extends Component {
   render() {
-    const { onOpen, tasks } = this.props;
+    const { onOpen, tasks, onDelete } = this.props;
     return (
       <div>
         {console.log()}
@@ -11,6 +11,7 @@ class List extends Component {
           <Task
             key={task.id}
             onOpen={onOpen}
+            onDelete={onDelete}
             task={task}
             showDescription={task.showDescription}
           ></Task>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import List from "./components/list";
+import NavBar from "./components/navbar";
 
 class App extends Component {
   constructor(props) {
@@ -11,32 +12,32 @@ class App extends Component {
       tasks: [
         {
           id: 1,
-          title: "To-do 1",
-          description: "What task 1 is  about",
+          title: "Research Docker",
+          description: "Read docker docs",
           showDescription: false
         },
         {
           id: 2,
-          title: "To-do 2",
-          description: "What task 2 is  about",
+          title: "Read Rust book",
+          description: "Read chapter 15",
           showDescription: false
         },
         {
           id: 3,
-          title: "To-do 3",
-          description: "What task 3 is  about",
+          title: "Work on exercise 20",
+          description: "Finish exercise and create PR",
           showDescription: false
         },
         {
           id: 4,
-          title: "To-do 4",
-          description: "What task 4 is  about",
+          title: "Weekly Hang Time",
+          description: "Attend meeting",
           showDescription: false
         },
         {
           id: 5,
-          title: "To-do 5",
-          description: "What task 5 is  about",
+          title: "React training",
+          description: "Finish chapter 30",
           showDescription: false
         }
       ],
@@ -64,17 +65,27 @@ class App extends Component {
     this.setState({ tasks: newTasks });
   };
 
+  handleDelete = taskId => {
+    const tasks = this.state.tasks.filter(c => c.id !== taskId);
+    this.setState({ tasks });
+  };
+
   render() {
     const { wasm, tasks } = this.state;
 
     return (
       <React.Fragment>
-        <h2>{wasm.hello && wasm.hello(this.state.name)}</h2>
-        <List tasks={tasks} onOpen={this.handleOpenDescription} />
-        <p>Change list owner</p>
+        <NavBar totalCounters={this.state.tasks.length} />
+        <h4>What's your name?</h4>
         <input
           type="text"
           onChange={e => this.setState({ name: e.target.value })}
+        />
+        <h2>{wasm.hello && wasm.hello(this.state.name)}</h2>
+        <List
+          tasks={tasks}
+          onOpen={this.handleOpenDescription}
+          onDelete={this.handleDelete}
         />
       </React.Fragment>
     );
